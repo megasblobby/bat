@@ -36,6 +36,19 @@ window.onload = function () {
 }
 
 function startGame() {
+	let scene = loadJSON("data/testScene.json", success, error);
+	console.log(scene);
+	/*let scene = new Scene();
+	scene.name = "testScene";
+	scene.spawnPoint = new Vector2(0, 0);
+	scene.imagePath = images[0].path;
+	scene.nodes.push("otherScene");
+	scene.interactables.push("Computer");
+	scene.characters.push("Sblobby");
+
+	let jsonScene =  JSON.stringify(scene);
+	console.log(jsonScene);*/
+
 	currentScenes.push(images[0]);
 }
 
