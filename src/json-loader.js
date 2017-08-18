@@ -6,7 +6,8 @@ function onReadyStateChange()
 {
   if (this.xhr.readyState === XMLHttpRequest.DONE) {
     if (this.xhr.status === DONE) {
-        this.success();
+        //this.success();
+        this.parsed = this.xhr.response;
   } else {
       this.error(this.xhr);
     }
@@ -14,17 +15,17 @@ function onReadyStateChange()
 };
 
 function JSONLoader () {
+  this.parsed = null;
+}
+
+JSONLoader.prototype.load = function (filePath) {
   this.xhr = new XMLHttpRequest();
   this.xhr.responseType = "json";
   this.onReadyStateChange = onReadyStateChange.bind(this);
   this.xhr.onreadystatechange = this.onReadyStateChange;
 
-  this.parsed = null;
-}
-
-JSONLoader.prototype.load = function (filePath) {
   this.xhr.open("GET", filePath, true);
-  this.xhr.send(null);
+  this.xhr.send();
 
   return this.parsed;
 };

@@ -13,15 +13,21 @@ let currentScenes = [];
 let rectX = 650, rectY = 300;
 let rectWidth = 100, rectHeight = 100;
 
+/* It must be in global space otherwise after a function call the object cease
+   to exist so the async call is not executed when is ready */
+let jsonLoader;
+
 window.onload = function () {
 	canvas = document.getElementById("gameCanvas");
 	canvasContext = canvas.getContext("2d");
 
+	WIDTH = canvas.width;
+	HEIGHT = canvas.height;
+
 	time = new Date().getTime();
 	oldTime = time;
 
-	WIDTH = canvas.width;
-	HEIGHT = canvas.height;
+	jsonLoader = new JSONLoader();
 
 	setupInput();
 
@@ -35,22 +41,14 @@ window.onload = function () {
 	gameLoop();
 }
 
-function startGame() {
-	let jsonLoader = new JSONLoader();
+function loadAssets() {
+	loadImages();
 
+}
+
+function startGame() {
 	let scene = jsonLoader.load("data/testScene.json");
 	console.log(scene);
-	/*let scene = new Scene();
-	scene.name = "testScene";
-	scene.spawnPoint = new Vector2(0, 0);
-	scene.imagePath = images[0].path;
-	scene.nodes.push("otherScene");
-	scene.interactables.push("Computer");
-	scene.characters.push("Sblobby");
-
-	let jsonScene =  JSON.stringify(scene);
-	console.log(jsonScene);*/
-
 	currentScenes.push(images[0]);
 }
 
