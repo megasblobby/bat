@@ -1,6 +1,6 @@
 "use strict";
 
-const MILLISECONDS_TO_SECONDS = 1/1000;
+//const MILLISECONDS_TO_SECONDS = 1/1000;
 
 let WIDTH, HEIGHT;
 
@@ -17,6 +17,8 @@ let rectWidth = 100, rectHeight = 100;
    to exist so the async call is not executed when is ready */
 let jsonLoader;
 
+let engine;
+
 window.onload = function () {
 	canvas = document.getElementById("gameCanvas");
 	canvasContext = canvas.getContext("2d");
@@ -24,21 +26,26 @@ window.onload = function () {
 	WIDTH = canvas.width;
 	HEIGHT = canvas.height;
 
-	time = new Date().getTime();
+	/*time = new Date().getTime();
 	oldTime = time;
 
-	jsonLoader = new JSONLoader();
+	jsonLoader = new JSONLoader();*/
+
+	engine = Object.create(Engine);
+	engine.init();
 
 	setupInput();
 
 	drawColoredRect(0, 0, WIDTH, HEIGHT, "black");
 	drawColoredText("LOADING", WIDTH / 2, HEIGHT / 2, "white");
 
-	loadImages();
+
+	engine.loop();
+	/*loadImages();
 
 	startGame();
 
-	gameLoop();
+	gameLoop();*/
 }
 
 function loadAssets() {
