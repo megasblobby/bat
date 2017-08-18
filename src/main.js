@@ -36,7 +36,9 @@ window.onload = function () {
 }
 
 function startGame() {
-	let scene = loadJSON("data/testScene.json", success, error);
+	let jsonLoader = new JSONLoader();
+
+	let scene = jsonLoader.load("data/testScene.json");
 	console.log(scene);
 	/*let scene = new Scene();
 	scene.name = "testScene";

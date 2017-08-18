@@ -1,36 +1,39 @@
+"use strict";
+
 const DONE = 200;
 
-let parsed = null;
-
-function loadJSON(filePath, success, error)
+function onReadyStateChange()
 {
-  let xhr = new XMLHttpRequest();
-
-  xhr.onreadystatechange = function()
-  {
-    if (xhr.readyState === XMLHttpRequest.DONE) {
-      if (xhr.status === 200) {
-        if (success)
-          parsed = success(xhr.responseText);
-    } else {
-      if (error)
-        error(xhr);
-      }
+  if (this.xhr.readyState === XMLHttpRequest.DONE) {
+    if (this.xhr.status === DONE) {
+        this.success();
+  } else {
+      this.error(this.xhr);
     }
-  };
-  xhr.open("GET", filePath, true);
-  xhr.send(null);
-
-  return parsed;
-}
-
-
- function success(responseText) {
-  parsed = JSON.parse(responseText);
-  return parsed;
+  }
 };
 
-function error(responseText) {
-  //JSON.parse(xhr.responseText);
+function JSONLoader () {
+  this.xhr = new XMLHttpRequest();
+  this.xhr.responseType = "json";
+  this.onReadyStateChange = onReadyStateChange.bind(this);
+  this.xhr.onreadystatechange = this.onReadyStateChange;
+
+  this.parsed = null;
+}
+
+JSONLoader.prototype.load = function (filePath) {
+  this.xhr.open("GET", filePath, true);
+  this.xhr.send(null);
+
+  return this.parsed;
+};
+
+JSONLoader.prototype.success = function () {
+  console.log(this.xhr.response);
+  this.parsed = this.xhr.response;
+};
+
+JSONLoader.prototype.success.error = function () {
   console.log("NON E' POSSIBILE CARICARE IL FILE");
 };
