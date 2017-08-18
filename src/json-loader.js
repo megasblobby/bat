@@ -6,16 +6,17 @@ function onReadyStateChange()
 {
   if (this.xhr.readyState === XMLHttpRequest.DONE) {
     if (this.xhr.status === DONE) {
-        //this.success();
         this.parsed = this.xhr.response;
   } else {
-      this.error(this.xhr);
+      console.log("ERROR: It's not possible to load file: " + this.filePath);
+      console.log(this.xhr.statusText);
     }
   }
 };
 
 function JSONLoader () {
   this.parsed = null;
+  this.filePath = "";
 }
 
 JSONLoader.prototype.load = function (filePath) {
@@ -24,17 +25,11 @@ JSONLoader.prototype.load = function (filePath) {
   this.onReadyStateChange = onReadyStateChange.bind(this);
   this.xhr.onreadystatechange = this.onReadyStateChange;
 
+  // Store path to display it in error messages
+  this.filePath = filePath;
+
   this.xhr.open("GET", filePath, true);
   this.xhr.send();
 
   return this.parsed;
-};
-
-JSONLoader.prototype.success = function () {
-  console.log(this.xhr.response);
-  this.parsed = this.xhr.response;
-};
-
-JSONLoader.prototype.success.error = function () {
-  console.log("NON E' POSSIBILE CARICARE IL FILE");
 };
