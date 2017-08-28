@@ -27,37 +27,39 @@ window.onload = function () {
 	HEIGHT = canvas.height;
 
 	/*time = new Date().getTime();
-	oldTime = time;
+	oldTime = time;*/
 
-	jsonLoader = new JSONLoader();*/
+	jsonLoader = new JSONLoader();
 
 	engine = Object.create(Engine);
 	engine.init();
 
 	setupInput();
 
+	engine.loadAssets();
+
 	drawColoredRect(0, 0, WIDTH, HEIGHT, "black");
 	drawColoredText("LOADING", WIDTH / 2, HEIGHT / 2, "white");
 
-
-	engine.loop();
+	//engine.loop();
 	/*loadImages();
 
 	startGame();
 
 	gameLoop();*/
+
 }
 
-function loadAssets() {
+/*function loadAssets() {
 	loadImages();
 
-}
+}*/
 
-function startGame() {
+/*function startGame() {
 	let scene = jsonLoader.load("data/testScene.json");
 	console.log(scene);
 	currentScenes.push(images[0]);
-}
+}*/
 
 function gameLoop() {
 	let deltaTime = getDeltaTime();

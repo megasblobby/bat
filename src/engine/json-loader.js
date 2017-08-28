@@ -7,6 +7,7 @@ function onReadyStateChange()
   if (this.xhr.readyState === XMLHttpRequest.DONE) {
     if (this.xhr.status === DONE) {
         this.parsed = this.xhr.response;
+        this.observable.notify("scene-loaded", this.parsed);
   } else {
       console.log("ERROR: It's not possible to load file: " + this.filePath);
       console.log(this.xhr.statusText);
@@ -17,6 +18,7 @@ function onReadyStateChange()
 function JSONLoader () {
   this.parsed = null;
   this.filePath = "";
+  this.observable = new Observable();
 }
 
 JSONLoader.prototype.load = function (filePath) {
