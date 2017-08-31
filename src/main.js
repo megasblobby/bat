@@ -1,15 +1,10 @@
 "use strict";
 
-//const MILLISECONDS_TO_SECONDS = 1/1000;
-
 let WIDTH, HEIGHT;
 
 let canvas, canvasContext;
 
 let time, oldTime
-
-let rectX = 650, rectY = 300;
-let rectWidth = 100, rectHeight = 100;
 
 let engine;
 let scenes = new Array();
@@ -28,10 +23,6 @@ window.onload = function () {
 
 	engine.init();
 
-	setupInput();
-
-	//engine.loadAssets();
-
 	let sceneLoader = new SceneLoader();
 	sceneLoader.load(["data/spaceport.json", "data/spaceport-bathroom.json"])
 	sceneLoader.observable.register("scenes-all-loaded", this);
@@ -40,33 +31,10 @@ window.onload = function () {
 	drawColoredText("LOADING", WIDTH / 2, HEIGHT / 2, "white");
 }
 
-
-
-/*function startGame() {
-	let scene = jsonLoader.load("data/testScene.json");
-	console.log(scene);
-	currentScenes.push(images[0]);
-}*/
-
-function gameLoop() {
-	let deltaTime = getDeltaTime();
-
-	update(deltaTime);
-	render(deltaTime);
-
-	requestAnimationFrame(gameLoop);
-}
-
-function getDeltaTime() {
-	time = new Date().getTime();
-	let deltaTime = (time - oldTime) * MILLISECONDS_TO_SECONDS;
-	oldTime = time;
-
-	return deltaTime;
-}
-
 function update(deltaTime) {
-
+	if (engine.inputManager.mouseLeftButton) {
+		console.log("sblobby");
+	}
 }
 
 function render(deltaTime) {

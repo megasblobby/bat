@@ -6,58 +6,19 @@ let Engine = {
   time : null,
   oldTime : null,
   deltaTime : null,
-  imagesLoader : null,
-  jsonLoader : null,
-  /*scenes : null,
-  currentScenes : null,*/
+  inputManager : null,
 
-  imagesLoaded : false,
   startGame : false,
 
   init : function() {
     this.time = new Date().getTime();
   	this.oldTime = this.time;
-
-    /*this.imagesLoader = new ImagesLoader();
-    this.imagesLoader.observable.register("images-loaded", this);
-
-    this.jsonLoader = new JSONLoader();
-    this.jsonLoader.observable.register("scene-loaded", this);*/
-
-    /*this.scenes = new Array();
-    this.currentScenes = new Array();*/
+    this.inputManager = new InputManager();
   },
 
-  loadAssets : function() {
-    this.imagesLoader.loadImages();
-  },
+  update : function(deltaTime) {},
 
-  loadScenes : function() {
-    this.jsonLoader.load("data/spaceport.json");
-    //this.jsonLoader.load("data/spaceport-bathroom.json");
-  },
-
-  update : function(deltaTime) {
-    /*console.log("update");
-    if (mouseLeftButton) {
-  		if(mouse.x >= rectX && mouse.x <= rectX + rectWidth && mouse.y >= rectY && mouse.y <= rectY + rectHeight) {
-  			console.log("CHANGE ROOM");
-  			//currentScenes.push(images[1]);
-  		}
-  	}*/
-  },
-
-  render : function(deltaTime) {
-    /*console.log("render");
-    console.log(currentScenes);
-    drawColoredRect(0, 0, WIDTH, HEIGHT, "black");
-
-  	for (var i = 0; i < this.currentScenes.length; i++) {
-  		drawImage(this.currentScenes[i].imageElement, 0, 0);
-  	}
-
-  	drawEmptyRect(650, 300, 100, 100, "blue");*/
-  },
+  render : function(deltaTime) {},
 
   computeDeltaTime : function() {
     this.time = new Date().getTime();
@@ -74,16 +35,5 @@ let Engine = {
     requestAnimationFrame(this.loop.bind(this));
   },
 
-  onNotify : function(subject, object) {
-    /*if (subject === "images-loaded") {
-      this.imagesLoaded = true;
-      this.loadScenes();
-      this.loop();
-    }
-    if (subject === "scene-loaded") {
-      this.scenes.push(new Scene(object));
-      if (this.scenes[this.scenes.length - 1].name === "spaceport")
-        this.currentScenes.push(this.scenes[this.scenes.length - 1]);
-    }*/
-  }
+  onNotify : function(subject, object) {}
 };
