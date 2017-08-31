@@ -77,8 +77,10 @@ function render(deltaTime) {
 		drawImage(currentScenes[index].imageElement, 0, 0);
 	}
 
-	drawEmptyRect(rectX, rectY, rectWidth, rectHeight, "blue");
-
+	drawEmptyRect(currentScenes[0].nodes[0].position.x,
+								currentScenes[0].nodes[0].position.y,
+								currentScenes[0].nodes[0].sizes.x,
+								currentScenes[0].nodes[0].sizes.y, "blue");
 }
 
 function onNotify(subject, object){
