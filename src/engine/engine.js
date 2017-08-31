@@ -33,11 +33,18 @@ let Engine = {
   },
 
   loadScenes : function() {
-    this.jsonLoader.load("data/testScene.json");
+    this.jsonLoader.load("data/spaceport.json");
+    //this.jsonLoader.load("data/spaceport-bathroom.json");
   },
 
   update : function(deltaTime) {
     console.log("update");
+    if (mouseLeftButton) {
+  		if(mouse.x >= rectX && mouse.x <= rectX + rectWidth && mouse.y >= rectY && mouse.y <= rectY + rectHeight) {
+  			console.log("CHANGE ROOM");
+  			//currentScenes.push(images[1]);
+  		}
+  	}
   },
   render : function(deltaTime) {
     console.log("render");
@@ -67,14 +74,15 @@ let Engine = {
   },
 
   onNotify : function(subject, object) {
-    if (subject === "images-loaded") {
+    /*if (subject === "images-loaded") {
       this.imagesLoaded = true;
       this.loadScenes();
       this.loop();
     }
     if (subject === "scene-loaded") {
       this.scenes.push(new Scene(object));
-      this.currentScenes.push(this.scenes[this.scenes.length - 1]);
-    }
+      if (this.scenes[this.scenes.length - 1].name === "spaceport")
+        this.currentScenes.push(this.scenes[this.scenes.length - 1]);
+    }*/
   }
 };

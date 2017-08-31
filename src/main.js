@@ -13,10 +13,6 @@ let currentScenes = [];
 let rectX = 650, rectY = 300;
 let rectWidth = 100, rectHeight = 100;
 
-/* It must be in global space otherwise after a function call the object cease
-   to exist so the async call is not executed when is ready */
-let jsonLoader;
-
 let engine;
 
 window.onload = function () {
@@ -26,34 +22,22 @@ window.onload = function () {
 	WIDTH = canvas.width;
 	HEIGHT = canvas.height;
 
-	/*time = new Date().getTime();
-	oldTime = time;*/
-
-	jsonLoader = new JSONLoader();
-
-	engine = Object.create(Engine);
-	engine.init();
+	//engine = Object.create(Engine);
+	//engine.init();
 
 	setupInput();
 
-	engine.loadAssets();
+	//engine.loadAssets();
+
+	let sceneLoader = new SceneLoader();
+	sceneLoader.load(["data/spaceport.json", "data/spaceport-bathroom.json"])
+	sceneLoader.observable.register("scenes-all-loaded", this);
 
 	drawColoredRect(0, 0, WIDTH, HEIGHT, "black");
 	drawColoredText("LOADING", WIDTH / 2, HEIGHT / 2, "white");
-
-	//engine.loop();
-	/*loadImages();
-
-	startGame();
-
-	gameLoop();*/
-
 }
 
-/*function loadAssets() {
-	loadImages();
 
-}*/
 
 /*function startGame() {
 	let scene = jsonLoader.load("data/testScene.json");
@@ -79,12 +63,7 @@ function getDeltaTime() {
 }
 
 function update(deltaTime) {
-	if (mouseLeftButton) {
-		if(mouse.x >= rectX && mouse.x <= rectX + rectWidth && mouse.y >= rectY && mouse.y <= rectY + rectHeight) {
-			console.log("CHANGE ROOM");
-			currentScenes.push(images[1]);
-		}
-	}
+
 }
 
 function render(deltaTime) {
@@ -97,4 +76,8 @@ function render(deltaTime) {
 
 	drawEmptyRect(rectX, rectY, rectWidth, rectHeight, "blue");
 
+}
+
+function onNotify(subject, object){
+	console.log("SCENE PRONTE");
 }
