@@ -4,8 +4,12 @@ function SceneLoader()
 {
   this.jsonLoader = new JSONLoader();
   this.jsonLoader.observable.register("scene-loaded", this);
-  this.scenesToLoad = 0;
+  this.imageLoader = new ImageLoader();
+  this.imageLoader.observable.register("images-all-loaded", this);
   this.scenes = new Array();
+  this.imagesPaths = new Array();
+  this.images = new Array();
+  this.scenesToLoad = 0;
   this.loadScenes = null;
   this.observable = new Observable();
 };
@@ -25,11 +29,22 @@ function *loadScenes(filePaths, jsonLoader) {
 
 SceneLoader.prototype.onNotify = function (subject, object) {
   if (subject == "scene-loaded") {
-    this.scenes.push(this.loadScenes.next());
+    this.scenes.push(new Scene(object));
+    this.loadScenes.next();
     this.scenesToLoad--;
 
+    this.imagesPaths.push(object.imagePath);
+
     if (this.scenesToLoad == 0) {
-      this.observable.notify("scenes-all-loaded", this.scenes);
+      this.loadImages(this.imagesPaths);
     }
   }
+  if (subject == "images-all-loaded") {
+    this.images = object;
+    this.observable.notify("scenes-all-loaded", this.scenes);
+  }
+};
+
+SceneLoader.prototype.loadImages = function (imagesPaths) {
+    this.imageLoader.load(imagesPaths);
 };

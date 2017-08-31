@@ -1,6 +1,7 @@
 "use strict";
 
 function Scene (data) {
+  this.name = "";
   this.name = data.name;
   this.spawnPoint = new Vector2(data.spawnPoint.x, data.spawnPoint.y);
 

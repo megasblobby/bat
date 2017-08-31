@@ -8,12 +8,12 @@ let canvas, canvasContext;
 
 let time, oldTime
 
-let currentScenes = [];
-
 let rectX = 650, rectY = 300;
 let rectWidth = 100, rectHeight = 100;
 
 let engine;
+let scenes = new Array();
+let currentScenes = new Array();
 
 window.onload = function () {
 	canvas = document.getElementById("gameCanvas");
@@ -22,8 +22,11 @@ window.onload = function () {
 	WIDTH = canvas.width;
 	HEIGHT = canvas.height;
 
-	//engine = Object.create(Engine);
-	//engine.init();
+	engine = Object.create(Engine);
+	engine.update = update.bind(this);
+	engine.render = render.bind(this);
+
+	engine.init();
 
 	setupInput();
 
@@ -70,8 +73,8 @@ function render(deltaTime) {
 
   drawColoredRect(0, 0, WIDTH, HEIGHT, "black");
 
-	for (var i = 0; i < currentScenes.length; i++) {
-		drawImage(currentScenes[i].imageElement, 0, 0);
+	for (var index = 0; index < currentScenes.length; index++) {
+		drawImage(currentScenes[index].imageElement, 0, 0);
 	}
 
 	drawEmptyRect(rectX, rectY, rectWidth, rectHeight, "blue");
@@ -79,5 +82,10 @@ function render(deltaTime) {
 }
 
 function onNotify(subject, object){
-	console.log("SCENE PRONTE");
+	if (subject === "scenes-all-loaded") {
+		scenes = object;
+		currentScenes.push(scenes[0]);
+		console.log("SCENE PRONTE");
+		engine.loop();
+	}
 }

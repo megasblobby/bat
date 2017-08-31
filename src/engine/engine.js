@@ -8,8 +8,8 @@ let Engine = {
   deltaTime : null,
   imagesLoader : null,
   jsonLoader : null,
-  scenes : null,
-  currentScenes : null,
+  /*scenes : null,
+  currentScenes : null,*/
 
   imagesLoaded : false,
   startGame : false,
@@ -18,14 +18,14 @@ let Engine = {
     this.time = new Date().getTime();
   	this.oldTime = this.time;
 
-    this.imagesLoader = new ImagesLoader();
+    /*this.imagesLoader = new ImagesLoader();
     this.imagesLoader.observable.register("images-loaded", this);
 
     this.jsonLoader = new JSONLoader();
-    this.jsonLoader.observable.register("scene-loaded", this);
+    this.jsonLoader.observable.register("scene-loaded", this);*/
 
-    this.scenes = new Array();
-    this.currentScenes = new Array();
+    /*this.scenes = new Array();
+    this.currentScenes = new Array();*/
   },
 
   loadAssets : function() {
@@ -38,16 +38,17 @@ let Engine = {
   },
 
   update : function(deltaTime) {
-    console.log("update");
+    /*console.log("update");
     if (mouseLeftButton) {
   		if(mouse.x >= rectX && mouse.x <= rectX + rectWidth && mouse.y >= rectY && mouse.y <= rectY + rectHeight) {
   			console.log("CHANGE ROOM");
   			//currentScenes.push(images[1]);
   		}
-  	}
+  	}*/
   },
+
   render : function(deltaTime) {
-    console.log("render");
+    /*console.log("render");
     console.log(currentScenes);
     drawColoredRect(0, 0, WIDTH, HEIGHT, "black");
 
@@ -55,7 +56,7 @@ let Engine = {
   		drawImage(this.currentScenes[i].imageElement, 0, 0);
   	}
 
-  	drawEmptyRect(650, 300, 100, 100, "blue");
+  	drawEmptyRect(650, 300, 100, 100, "blue");*/
   },
 
   computeDeltaTime : function() {
