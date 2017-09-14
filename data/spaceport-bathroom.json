@@ -1,1 +1,3 @@
-{"name":"space-port-bathroom","spawnPoint":{"x":400,"y":0},"imagePath":"media/images/placeholder-spaceport-bathroom.png","nodes":["space-port"],"characters":[],"interactables":[]}
+{"name":"spaceport-bathroom","spawnPoint":{"x":400,"y":0},"imagePath":"media/images/placeholder-spaceport-bathroom.png","links":[{"position":{"x":650,"y":300},
+"sizes":{"x":100,"y":100},
+"scene":"spaceport"}],"characters":[],"interactables":[]}

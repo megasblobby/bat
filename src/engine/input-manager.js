@@ -8,21 +8,23 @@ function getMousePosition (evt) {
 	let rect = canvas.getBoundingClientRect();
 	let root = document.documentElement;
 
-	this.mouse.x = evt.clientX - rect.left - root.scrollLeft;
-	this.mouse.y = evt.clientY - rect.top - root.scrollTop;
+	let x = evt.clientX - rect.left - root.scrollLeft;
+	let y = evt.clientY - rect.top - root.scrollTop;
+	this.mouse.position = new Vector2(x, y);
 }
 
 function onMouseDown (evt) {
 	if(evt.button == MOUSE_LEFT_BUTTON) {
 		console.log("mouse down");
-		this.mouseLeftButton = true;
+		this.mouse.leftButton = true;
+		this.observable.notify("mouse-left-down", this.mouse)
 	}
 }
 
 function onMouseUp (evt) {
 	if(evt.button == MOUSE_LEFT_BUTTON) {
 		console.log("mouse up");
-		this.mouseLeftButton = false;
+		this.mouse.leftButton = false;
 	}
 }
 
@@ -35,8 +37,7 @@ function keyReleased (evt) {
 }
 
 function InputManager() {
-	this.mouse = new Vector2();
-	this.mouseLeftButton = false;
+	this.mouse = new Mouse();
 	this.observable = new Observable();
 
 	this.getMousePosition = getMousePosition.bind(this);

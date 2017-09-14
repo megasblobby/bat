@@ -45,17 +45,23 @@ function render(deltaTime) {
 		drawImage(currentScenes[index].imageElement, 0, 0);
 	}
 
-	drawEmptyRect(currentScenes[0].nodes[0].position.x,
-								currentScenes[0].nodes[0].position.y,
-								currentScenes[0].nodes[0].sizes.x,
-								currentScenes[0].nodes[0].sizes.y, "blue");
+	drawEmptyRect(currentScenes[0].links[0].position.x,
+								currentScenes[0].links[0].position.y,
+								currentScenes[0].links[0].sizes.x,
+								currentScenes[0].links[0].sizes.y, "blue");
 }
 
 function onNotify(subject, object){
 	if (subject === "scenes-all-loaded") {
 		scenes = object;
 		currentScenes.push(scenes[0]);
-		console.log("SCENE PRONTE");
+
+		for (var i = 0; i < scenes.length; i++) {
+			for (var j = 0; j < scenes[i].links.length; j++) {
+				engine.inputManager.observable.register("mouse-left-down",
+				 																				 scenes[i].links[j]);
+			}
+		}
 		engine.loop();
 	}
 }
