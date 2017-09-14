@@ -23,6 +23,7 @@ Link.prototype.onNotify = function(subject, object) {
     let cursorPosition = object.position;
     if (this.isInside(cursorPosition)) {
       console.log("change scene to: " + this.scene);
+      this.observable.notify("change-scene", this.scene);
     }
   }
 };

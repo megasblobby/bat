@@ -7,7 +7,7 @@ let canvas, canvasContext;
 let time, oldTime
 
 let engine;
-let scenes = new Array();
+let scenes = new Map();
 let currentScenes = new Array();
 
 window.onload = function () {
@@ -53,15 +53,18 @@ function render(deltaTime) {
 
 function onNotify(subject, object){
 	if (subject === "scenes-all-loaded") {
-		scenes = object;
-		currentScenes.push(scenes[0]);
-
-		for (var i = 0; i < scenes.length; i++) {
-			for (var j = 0; j < scenes[i].links.length; j++) {
-				engine.inputManager.observable.register("mouse-left-down",
-				 																				 scenes[i].links[j]);
-			}
+		for (let scene of object) {
+			scenes.set(scene.name, scene);
+			for (let link of scene.links) {
+				engine.inputManager.observable.register("mouse-left-down", link);
+				link.observable.register("change-scene", this);
+				}
 		}
+		currentScenes.push(scenes.values().next().value);
 		engine.loop();
+	}
+
+	if (subject === "change-scene") {
+		currentScenes.push(scenes.get(object));
 	}
 }
