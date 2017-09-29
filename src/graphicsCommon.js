@@ -18,8 +18,8 @@ function drawColoredCircle(x, y, radius, color) {
 	canvasContext.fill();
 }
 
-function drawImage(image, x, y) {
-	canvasContext.drawImage(image, x, y);
+function drawImage(image, position) {
+	canvasContext.drawImage(image, position.x, position.y);
 }
 
 function drawCenteredRotatedImage(image, x, y, angle) {

@@ -1,3 +1,14 @@
-{"name":"spaceport-bathroom","spawnPoint":{"x":400,"y":0},"imagePath":"media/images/placeholder-spaceport-bathroom.png","links":[{"position":{"x":0,"y":0},
-"sizes":{"x":100,"y":100},
-"scene":"spaceport"}],"characters":[],"interactables":[]}
+{"name":"spaceport-bathroom",
+  "spawnPoint":{"x":472,"y":4},
+  "imagePath":"media/images/placeholder-spaceport-bathroom.png",
+  "links":[
+    {"position":{"x":480,"y":124},
+    "sizes":{"x":66,"y":72},
+    "scene":"spaceport-bathroom-agent"},
+    {"position":{"x":856,"y":14},
+    "sizes":{"x":88,"y":252},
+    "scene":"__pop__"}
+    ],
+    "characters":[""],
+    "interactables":[""]
+}

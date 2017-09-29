@@ -18,13 +18,13 @@ window.onload = function () {
 	HEIGHT = canvas.height;
 
 	engine = Object.create(Engine);
-	engine.update = update.bind(this);
-	engine.render = render.bind(this);
+	engine.update = update.bind(engine);
+	engine.render = render.bind(engine);
 
 	engine.init();
 
 	let sceneLoader = new SceneLoader();
-	sceneLoader.load(["data/spaceport.json", "data/spaceport-bathroom.json"])
+	sceneLoader.load(["data/spaceport.json", "data/spaceport-bathroom.json", "data/spaceport-bathroom-agent.json"])
 	sceneLoader.observable.register("scenes-all-loaded", this);
 
 	drawColoredRect(0, 0, WIDTH, HEIGHT, "black");
@@ -42,13 +42,18 @@ function render(deltaTime) {
   drawColoredRect(0, 0, WIDTH, HEIGHT, "black");
 
 	for (var index = 0; index < currentScenes.length; index++) {
-		drawImage(currentScenes[index].imageElement, 0, 0);
+		if (index === currentScenes.length - 1) {
+			drawColoredRect(0, 0,
+										WIDTH,	HEIGHT, "#000000B0");
+		}
+		drawImage(currentScenes[index].imageElement,
+							currentScenes[index].spawnPoint);
 	}
 
-	drawEmptyRect(currentScenes[0].links[0].position.x,
-								currentScenes[0].links[0].position.y,
-								currentScenes[0].links[0].sizes.x,
-								currentScenes[0].links[0].sizes.y, "blue");
+	for(let link of currentScenes[currentScenes.length - 1].links) {
+		drawEmptyRect(link.position.x,link.position.y,
+									link.sizes.x,	link.sizes.y, "blue");
+	}
 }
 
 function onNotify(subject, object){
@@ -65,6 +70,12 @@ function onNotify(subject, object){
 	}
 
 	if (subject === "change-scene") {
-		currentScenes.push(scenes.get(object));
+		let scene = object;
+		if (scene === "__pop__") {
+			currentScenes.pop();
+		}
+		else {
+			currentScenes.push(scenes.get(object));
+		}
 	}
 }

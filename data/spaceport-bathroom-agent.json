@@ -1,0 +1,17 @@
+{"name":"spaceport-bathroom-agent",
+  "spawnPoint":{"x":472,"y":275},
+  "imagePath":"media/images/placeholder-spaceport-bathroom-agent.png",
+  "links":[
+    {"position":{"x":0,"y":0},
+     "sizes":{"x":0,"y":0},
+     "scene":"spaceport-bathroom-agent"},
+     {"position":{"x":478,"y":279},
+     "sizes":{"x":62,"y":297},
+     "scene":"__pop__"},
+     {"position":{"x":890,"y":279},
+     "sizes":{"x":62,"y":304},
+     "scene":"__pop__"}
+     ],
+    "characters":[""],
+    "interactables":[""]
+}
